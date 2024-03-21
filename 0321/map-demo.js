@@ -29,7 +29,7 @@ console.log(`forEach로 return: ${forEachArr}`);
 
 console.log(`map으로 return: ${mapArr1}`);
 
-console.log(`map으로 return: ${mapArr1}`);
+console.log(`map으로 return: ${mapArr2}`);
 
 const arr2 = ['1', '2', '3'];
 
