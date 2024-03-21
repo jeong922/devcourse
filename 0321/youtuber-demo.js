@@ -87,7 +87,11 @@ app.put('/youtubers/:id', (req, res) => {
   const youtuber = db.get(id);
   const channelTitle = youtuber.channelTitle;
   const newChannelTitle = req.body.channelTitle;
-  youtuber.channelTitle = newChannelTitle;
+  // youtuber.channelTitle = newChannelTitle;
+
+  // ❓ MDN 사이트를 보면 정상적인 값 업데이트 방법은 set 사용하라 나와있다.
+  // The correct usage for storing data in the Map is through the set(key, value) method.
+  db.set(id, { ...db.get(id), channelTitle: newChannelTitle });
   res.status(200).json({
     message: `${channelTitle}님, 채널명이 ${newChannelTitle}로 수정되었습니다.`,
   });
