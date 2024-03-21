@@ -1,51 +1,104 @@
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
-// 배열 내의 모든 요소 각각에 대하여 주어진 함수를 호출한 결과를 모아 새로운 배열을 반환
-const arr = ['🍎', '🍓', '🥑', '🍐', '🍒'];
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
 
-const mapResult = arr.map((currentValue, index, array) => {
-  // currentValue : 처리할 현재 요소
-  // index : 처리할 현재 요소의 인덱스
-  // array : map()을 호출한 배열
-  console.log(
-    `currentValue : ${currentValue}, index : ${index}, array : ${array}`
-  );
-});
+const arr = ['🍎', '🍓', '🥑'];
+const map = new Map();
 
-const forEachArr = arr.forEach((element) => {
-  // 리턴값 없음(undefined)
-  return element + '😊';
-});
+// 추가
+arr.forEach((v, i) => map.set(i + 1, v));
 
-const mapArr1 = arr.map((element) => {
-  // 배열의 각 요소에 대해 실행한 callback의 결과를 모은 새로운 배열.
-  return element + '😊';
-});
+console.log(map);
+map.set(4, '🥝');
+console.log(map);
 
-const mapArr2 = arr.map((element) => element + '😊');
+// 크기 확인
+console.log(map.size);
 
-console.log(arr);
+// 순회
+map.forEach((value, key) => console.log(key, value));
+console.log(map.keys()); // [Map Iterator] { 1, 2, 3, 4 }
+console.log(map.values()); // [Map Iterator] { '🍎', '🍓', '🥑', '🥝' }
+console.log(map.entries()); // [Map Entries] { [ 1, '🍎' ], [ 2, '🍓' ], [ 3, '🥑' ], [ 4, '🥝' ] }
 
-console.log(`forEach로 return: ${forEachArr}`);
+// 찾기
+console.log(map.get(1));
+console.log(map.get(2));
+console.log(map.get(3));
+console.log(map.get(4));
 
-console.log(`map으로 return: ${mapArr1}`);
+// 존재 확인
+console.log(map.has(1)); // true
+console.log(map.has(12)); // false
 
-console.log(`map으로 return: ${mapArr2}`);
+// 삭제
+map.delete(1);
+console.log(map);
 
-const arr2 = ['1', '2', '3'];
+// 전체 삭제
+map.clear();
+console.log(map);
 
-function returnInt(element) {
-  return parseInt(element, 10);
+// ----------------------------------------------------------------------------------------------
+// Map vs Object
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Keyed_collections#object_and_map_compared
+/**
+ * The keys of an Object are strings or symbols, whereas they can be of any value for a Map.
+ * You can get the size of a Map easily, while you have to manually keep track of size for an Object.
+ * The iteration of maps is in insertion order of the elements.
+ * An Object has a prototype, so there are default keys in the map. (This can be bypassed using map = Object.create(null).)
+ */
+
+const key = { name: '커피', icon: '☕' };
+const pudding = { name: '푸딩', icon: '🍮' };
+
+const obj2 = {
+  [key]: pudding,
+};
+
+const mapTest = new Map([[key, pudding]]);
+console.log(obj2); //{ '[object Object]': { name: '푸딩', icon: '🍮' } }
+console.log(mapTest); // Map(1) { { name: '커피', icon: '☕' } => { name: '푸딩', icon: '🍮' } }
+console.log(obj2[key]); // { name: '푸딩', icon: '🍮' }
+console.log(mapTest[key]); // undefined -> 이렇게 접근 안된다.
+console.log(mapTest.get(key)); //{ name: '푸딩', icon: '🍮' }
+
+const map2 = new Map();
+arr.forEach((v, i) => map2.set(i + 1, v));
+const obj = { 1: '🍎', 2: '🍓', 3: '🥑' };
+
+// 객체는 forEach 안됨 -> TypeError: obj.forEach is not a function
+// obj.forEach((v, key) => {
+//   console.log(`v : ${v}, key : ${key}`);
+// });
+
+for (const key in obj) {
+  console.log(`obj: ${key} = ${obj[key]}`);
 }
 
-const result1 = ['1', '2', '3'].map(returnInt); // [1, 2, 3]
+console.log(`Object.keys(): ${Object.keys(obj)}`); // 1,2,3
 
-const result2 = ['1', '2', '3'].map((str) => parseInt(str));
+console.log(`Object.entries(): ${Object.entries(obj)}`); // [ [ '1', '🍎' ], [ '2', '🍓' ], [ '3', '🥑' ] ]
 
-const result3 = ['1', '2', '3'].map(Number); // [1, 2, 3]
+for (const [key, value] of Object.entries(obj)) {
+  console.log(`Object.entries() + for..of : ${key}: ${value}`);
+}
 
-const result4 = ['1.1', '2.2e2', '3e300'].map(Number); // [1.1, 220, 3e+300]
+//-------------------------------
+map2.forEach((v, i, array) => {
+  console.log(`forEach - v : ${v}, i : ${i}, array : ${array}`);
+});
 
-console.log(result1);
-console.log(result2);
-console.log(result3);
-console.log(result4);
+for (const [key, value] of map2) {
+  console.log(`${key} = ${value}`);
+}
+
+for (const key of map2.keys()) {
+  console.log(key);
+}
+
+for (const value of map2.values()) {
+  console.log(value);
+}
+
+for (const [key, value] of map2.entries()) {
+  console.log(`${key} = ${value}`);
+}
