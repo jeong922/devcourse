@@ -32,7 +32,7 @@
 - 없는 회원 탈퇴
   ![message](./img/없는%20회원%20탈퇴.png)
 
-## expeption-demo 실행 결과
+## exception-demo 실행 결과
 
 - 과일 전체 조회
   ![message](./img/exception-demo-get.png)
