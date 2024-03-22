@@ -57,20 +57,27 @@ app.post('/join', (req, res) => {
   // https://express-validator.github.io/docs/
 
   const MAX_BODY_LENGTH = 3; // 받는 데이터의 양에 따라 값 변경해야 함
-  const { username, userId, password } = req.body;
+  let { username, userId, password } = req.body;
   const bodyLength = Object.values(req.body).length;
   if (bodyLength != MAX_BODY_LENGTH) {
     return res.status(400).json({ message: '입력 값을 다시 확인해주세요.' });
   }
+
+  username = username.trim();
+  userId = userId.trim();
+  password = userId.trim();
+
+  if (username === '' || userId === '' || password === '') {
+    return res.status(400).json({ message: '입력 값을 다시 확인해주세요.' });
+  }
+
   const user = {
     id: Date.now(),
-    username: username.trim(),
-    userId: userId.trim(),
-    password: password.trim(), // 비밀번호 검증 추가하기(정규표현식 뭐 이런거..)
+    username: username,
+    userId: userId,
+    password: password, // 비밀번호 검증 추가하기(정규표현식 뭐 이런거..)
   };
-  const findUser = [...db.values()].find(
-    (user) => user.userId === userId.trim()
-  );
+  const findUser = [...db.values()].find((user) => user.userId === userId);
   if (findUser) {
     res.status(409).json({ message: '이미 가입 된 사용자 입니다.' });
   } else {
