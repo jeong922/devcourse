@@ -73,9 +73,9 @@ app.post('/join', (req, res) => {
 
   const user = {
     id: Date.now(),
-    username: username,
-    userId: userId,
-    password: password, // 비밀번호 검증 추가하기(정규표현식 뭐 이런거..)
+    username,
+    userId,
+    password, // 비밀번호 검증 추가하기(정규표현식 뭐 이런거..)
   };
   const findUser = [...db.values()].find((user) => user.userId === userId);
   if (findUser) {
