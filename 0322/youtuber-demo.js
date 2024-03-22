@@ -68,6 +68,11 @@ app.get('/youtubers/:id', (req, res) => {
 
 // POST /youtubers
 app.post('/youtubers', (req, res) => {
+  const MAX_BODY_LENGTH = 3;
+  const bodyLength = Object.values(req.body).length;
+  if (bodyLength != MAX_BODY_LENGTH) {
+    return res.status(400).json({ message: '입력 값을 다시 확인해주세요.' });
+  }
   const { channelTitle, sub, videoNum } = req.body;
   const youtuber = {
     id: Date.now(), // 전역 변수 id를 만들어서 증가시키는 방법도 있음
@@ -77,8 +82,6 @@ app.post('/youtubers', (req, res) => {
   };
   db.set(youtuber.id, youtuber);
   res.status(201).json(youtuber);
-
-  // 예외처리
 });
 
 // PUT /youtubers/:id
@@ -125,7 +128,7 @@ app.delete('/youtubers/:id', (req, res) => {
 
   // 2. false인 경우 return해서 종료시키기(?)
   if (!db.has(id)) {
-    return res.json({
+    return res.status(404).json({
       message: `요청하신 id ${id}번은 없는 유튜버 입니다.`,
     });
   }
@@ -133,7 +136,9 @@ app.delete('/youtubers/:id', (req, res) => {
   const channelTitle = db.get(id).channelTitle;
   db.delete(id);
   // 1. message 보내기
-  res.json({ message: `${channelTitle}님, 정상적으로 삭제 되었습니다.` });
+  res
+    .status(200)
+    .json({ message: `${channelTitle}님, 정상적으로 삭제 되었습니다.` });
 
   // 2. status 204
   // 204 : No Content
