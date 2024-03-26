@@ -37,7 +37,7 @@ router.get('/users', (req, res) => {
 // });
 
 // GET /users/:userId
-// id 값을 대신 userId를 사용하면서 body에서 userId 값을 받아와 그것으로 db 데이터를 삭제하는데
+// id 값을 대신 userId를 사용하면서 body에서 userId 값을 받아와 그것으로 db에서 데이터를 조회하는데
 // userId 값 자체가 유니크한(중복없는) 값이므로 그냥 req.params.userId로 받아와서 사용해도 된다고 생각함.
 router.get('/users/:userId', (req, res) => {
   const userId = req.params.userId;
