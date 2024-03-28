@@ -101,6 +101,14 @@ ALTER TABLE posts CHANGE userId user_id INT;
 
   ![alias](./img/left%20join%20alias.png)
 
+  컬럼명에도 적용해보자
+
+  ```sql
+  SELECT p.id AS "게시글 번호", title AS "제목", content AS "내용", created_at AS "작성일자", updated_at AS "수정일자", name AS "작성자 이름" FROM posts p LEFT JOIN users u ON p.user_id = u.id;
+  ```
+
+  ![컬럼명 alias](./img/컬럼명에%20alias%20적용.png)
+
 #### `INNER JOIN`
 
 ```sql
