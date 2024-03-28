@@ -47,7 +47,7 @@
   ![사용자 테이블 데이터 추가](./img/사용자%20테이블%20데이터%20추가.png)
 
 - 게시글 테이블 데이터 추가<br>
-  여기부터는 기본 터미널이 너무 불편해서 Windows Terminal을 사용해서 폰트가 좀 다르다.
+  여기부터는 기본 터미널이 너무 불편해서 Windows Terminal을 설치하여 사용했기 때문에 폰트가 좀 다르다.
   ```sql
   INSERT INTO posts (title, content, userId) VALUES ("도도도 춘식이", "라이언을 만나기 전, 춘식이 이야기", 1);
   INSERT INTO posts (title, content, userId) VALUES ("도도도 춘식이2", "춘식이와 라이언 이야기", 1);
