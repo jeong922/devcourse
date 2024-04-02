@@ -14,7 +14,7 @@ const validateUserIdAndTitle = [
     .trim()
     .notEmpty()
     .isLength({ min: 1 })
-    .withMessage('채널명 오류'),
+    .withMessage('채널명을 한글자 이상 정확하게 입력해주세요.'),
   body('userId')
     .notEmpty()
     .isInt()
