@@ -5,7 +5,10 @@ const { body, param } = require('express-validator');
 const { validate } = require('../middleware/validator');
 
 const validateUserId = [
-  body('userId').notEmpty().isInt().withMessage('숫자로 입력해주세요.'),
+  body('userId')
+    .notEmpty()
+    .isInt()
+    .withMessage('userId를 숫자로 입력해주세요.'),
   validate,
 ];
 
@@ -15,12 +18,15 @@ const validateUserIdAndTitle = [
     .trim()
     .notEmpty()
     .isLength({ min: 1 })
-    .withMessage('채널명 오류'),
+    .withMessage('채널명을 한글자 이상 정확하게 입력해주세요.'),
   ...validateUserId,
 ];
 
 const validateId = [
-  param('id').notEmpty().withMessage('채널 id 필요'),
+  param('id')
+    .notEmpty()
+    .isInt()
+    .withMessage('채널 id를 숫자로 정확하게 입력해주세요.'),
   validate,
 ];
 
@@ -29,7 +35,7 @@ const validateIdAndTitle = [
     .trim()
     .notEmpty()
     .isLength({ min: 1 })
-    .withMessage('채널명 오류'),
+    .withMessage('채널명을 한글자 이상 정확하게 입력해주세요.'),
   ...validateId,
 ];
 

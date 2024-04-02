@@ -30,7 +30,7 @@ const validateJoin = [
     .notEmpty()
     .trim()
     .isLength({ min: 2 })
-    .withMessage('이름을 입력해주세요.'),
+    .withMessage('이름을 두글자 이상 입력해주세요.'),
   body('contact').trim(),
   ...validateEmailAndPassword,
 ];
