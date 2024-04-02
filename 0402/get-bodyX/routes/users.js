@@ -13,7 +13,7 @@ const validateEmail = [
   validate,
 ];
 
-// isStrongPassword라는게 있긴하던데 그냥 최고 길이만 설정함
+// isStrongPassword라는게 있긴하던데 그냥 최소 길이만 설정함
 // trim을 사용해서 그런지 password를 숫자로 입력해도 정상적으로 문자열로 들어감.
 const validateEmailAndPassword = [
   body('password')
